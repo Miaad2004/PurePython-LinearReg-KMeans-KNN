@@ -23,18 +23,11 @@ class LinearRegression:
         self.dIntercept = 1
         self.dSlope = 1
 
-    def forward(self, inputs):
-        return self.slope * inputs + self.intercept
-
-class Model(LinearRegression):
-    def __init__(self):
-        super().__init__()
-    
     def calculateLoss(self, predictions, labels):     # Mean Square Error
         return np.mean((predictions - labels) ** 2)
 
     def predict(self, x):
-        return self.forward(x)
+        return self.slope * x + self.intercept
     
     def train(self, x, y, LR=1e-3, epochs=1000, minLoss=-1):
         x, y = np.array(x), np.array(y)
@@ -54,7 +47,7 @@ class Model(LinearRegression):
 def main():
     # Hyperparameters
     epoch = 10000
-    minLoss = 1e-6     
+    minLoss = 1e-8     
     lr = 1e-3
 
     # data
@@ -62,7 +55,7 @@ def main():
     y = [3,5,7,9,11,13]
 
     # training
-    model = Model()
+    model = LinearRegression()
     model.train(x, y, LR=lr, epochs=epoch, minLoss=minLoss)
     print(f"Slope={model.getParams()[0]:.3f} Intercept={model.getParams()[1]:.3f}")
     print(model.predict(10))
