@@ -54,6 +54,7 @@ class LinearRegression:
         return (self.slopes, self.intercept)
 
 
+# ==================================================
 def visualize(x, y, slope, intercept):
     fig, axis = plt.subplots()
     plt.scatter(x, y)
@@ -66,10 +67,15 @@ def main():
     minLoss = 1e-4
     lr = 1e-2
 
-    # Generate data
+    # Generate random data
     randomNums = np.random.uniform(0, 1, size=70)
-    x_train = np.hstack((randomNums, np.random.uniform(0, 1, size=5)))
-    y_train = np.hstack(((randomNums * 3) + 2, np.random.uniform(0, 1, size=5)))
+    x_train = np.hstack((randomNums,
+                         np.random.uniform(0, 1, size=5)
+                         ))
+    y_train = np.hstack(((randomNums * 3) + 2,
+                         np.random.uniform(0, 1, size=5)
+                         ))
+
     x_test = np.random.uniform(0, 1, size=50)
     y_test = (x_test * 3) + 2
 

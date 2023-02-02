@@ -8,7 +8,7 @@ class K_Nearest_Neighbor:
         self.data = [point for point in zip(X, Y)]      # Merge labels & the features into a 2D list
 
     @staticmethod
-    def calDistance(p1, p2):          # Calculate Euclidean distance
+    def calDistance(p1, p2):          # Calculates Euclidean distance
         p2, p1 = np.array(p2), np.array(p1)
         return np.sqrt(np.sum((p2 - p1) ** 2))
         
@@ -28,17 +28,25 @@ class K_Nearest_Neighbor:
 
         return predictions
 
-
+# ==================================================
 def visualize(x, y, predictions):
     plt.scatter(x, y, c=predictions)
     plt.show()
 
 def main():
-    # Generate data
-    train_x = np.vstack((np.random.uniform(0, 15, size=(300,2)), np.random.uniform(5, 30, size=(300, 2)))).reshape(-1, 2)
-    train_y = np.vstack((np.zeros(300), np.ones(300))).reshape(-1)
-    test_x = np.vstack((np.random.uniform(0, 15, size=(300,2)), np.random.uniform(5, 30, size=(300, 2)))).reshape(-1, 2)
-    test_y = np.vstack((np.zeros(300), np.ones(300))).reshape(-1)
+    # Generate random data
+    train_x = np.vstack((np.random.uniform(0, 15, size=(300,2)),
+                        np.random.uniform(5, 30, size=(300, 2))
+                        )).reshape(-1, 2)
+    train_y = np.vstack((np.zeros(300), np.ones(300)
+                        )).reshape(-1)
+
+    test_x = np.vstack((np.random.uniform(0, 15, size=(300,2)),
+                         np.random.uniform(5, 30, size=(300, 2))
+                         )).reshape(-1, 2)
+    test_y = np.vstack((np.zeros(300),
+                         np.ones(300)
+                         )).reshape(-1)
 
     # Create the model
     K = 10
