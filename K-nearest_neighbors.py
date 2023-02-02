@@ -17,7 +17,7 @@ class K_Nearest_Neighbor:
         for i in tqdm(range(len(inputs))):
             x = inputs[i]
             distances = []
-            for point in self.data:   # point[0] is the features & point[1] is the label
+            for point in self.data:                # point[0] is the features & point[1] is the label
                 distances.append([self.calDistance(x, point[0]), point[1]])            # Calculate the distances between x & all the points in the dataset
             
             distances.sort(key=lambda x: x[0])     # Sort the list based on distances
