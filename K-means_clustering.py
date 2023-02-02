@@ -1,0 +1,86 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+
+class K_Means_Clustering:
+    def __init__(self, K, x, featuresCount):
+        self.x = x
+        self.clustersCount = K
+        self.centroids = np.random.uniform(np.min(x), np.max(x), size=(self.clustersCount, featuresCount))
+        self.clusters = [[] for i in range(self.clustersCount)]
+
+    @staticmethod
+    def calDist(p1, p2):
+        p2, p1 = np.array(p2), np.array(p1)
+        return np.sqrt(np.sum((p2 - p1) ** 2))
+
+    def calNearestCentroid(self, point):
+        minDistance = self.calDist(point, self.centroids[0])
+        minClusterIndex = 0
+
+        for i, centroid in enumerate(self.centroids):
+            newDistance = self.calDist(point, centroid)
+            if newDistance < minDistance:
+                minDistance = newDistance
+                minClusterIndex = i
+        
+        return minClusterIndex
+
+    def updateCentroids(self):
+        for i in range(len(self.centroids)):
+            self.centroids[i] = np.mean(self.clusters[i])
+
+        np.nan_to_num(self.centroids, copy=False)
+
+    def fit(self, epochs):
+        for epoch in tqdm(range(epochs)):
+            for i, point in enumerate(self.x):
+                self.clusters[self.calNearestCentroid(point)].append(point)
+
+            self.updateCentroids()
+            for List in self.clusters:
+                List.clear() 
+    
+    def predict(self, x):
+        predictions = [self.calNearestCentroid(point) for point in x]
+        return np.array(predictions)
+
+    def getCentroids(self):
+        return self.centroids
+        
+
+def visualize(data, predictions):
+    data = np.array(data)
+    x = data[:, 0]
+    y = data[:, 1]
+    plt.scatter(x, y, c=predictions)
+    plt.show()
+
+def main():
+    # Generate data
+    x_train = np.vstack((np.random.uniform(1, 10, size=(200,2)),
+                        np.random.uniform(9, 20, size=(200,2)),
+                        np.random.uniform(19, 30, size=(200,2)),
+                        np.random.uniform(29, 40, size=(200,2))
+                        ))
+    x_test = np.vstack((np.random.uniform(1, 10, size=(200,2)),
+                        np.random.uniform(9, 20, size=(200,2)),
+                        np.random.uniform(19, 30, size=(200,2)),
+                        np.random.uniform(29, 40, size=(200,2))
+                        ))
+    
+    np.random.shuffle(x_train)
+    np.random.shuffle(x_test)
+
+    # Create the model
+    K = 4       
+    model = K_Means_Clustering(K, x_train, featuresCount=2)
+    model.fit(200)
+    print(model.getCentroids())
+
+    # Visualize
+    predictions = model.predict(x_test)
+    visualize(x_test, predictions)
+
+if __name__ == '__main__':
+    main()
