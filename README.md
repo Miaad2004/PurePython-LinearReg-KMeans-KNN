@@ -6,5 +6,5 @@
 []!(https://github.com/Miaad2004/ML-From-Scratch/blob/main/Screenshots/K-means_clustering.png)
 
 ## K-Nearest Neighbor
-[]!(https://github.com/Miaad2004/ML-From-Scratch/blob/main/Screenshots/K-nearest_neighbors.png)
+[jh]!(https://github.com/Miaad2004/ML-From-Scratch/blob/main/Screenshots/K-nearest_neighbors.png)
 <img src="https://github.com/Miaad2004/ML-From-Scratch/blob/main/Screenshots/K-means_clustering.png" />
